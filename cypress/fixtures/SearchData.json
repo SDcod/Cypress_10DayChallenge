@@ -1,0 +1,14 @@
+[
+  {
+    "term": "GTX 1650",
+    "expected": "GTX 1650"
+  },
+  {
+    "term": "RTX 3060",
+    "expected": "RTX 3060"
+  },
+  {
+    "term": "invalidsearch",
+    "expected": null
+  }
+]
