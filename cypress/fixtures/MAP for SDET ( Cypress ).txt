@@ -1,0 +1,111 @@
+MAP for SDET ( Cypress ).
+
+Language- JavaScript, SQL.s
+Tool- Cypress.
+CICD- GitHub-Actions
+Version Control- Git
+Testing Concepts- STLC, testing types etc. TC design, API testing ,performance testing.
+Domain Knowledge- SDLC, Agile and Scrum.
+
+***********************************************************************************************************
+
+1.Tools and language stack
+ Language : JavaScript/Java, HTML, CSS.
+ Unit testing : Mocha,Chai.
+ Api testing : Cypress/Postman.
+ UI testing : Cypress/Selenium.
+ Performance : K6
+ Mobile Testing : Appium
+
+2.Foundation 
+-Test Pyramid
+	Unit Tests(70%)
+	Integration Test(20%)
+	E2E Test(10%)
+-Test Design Patterns
+	FIRST(FAST,ISOLATED,REPEATABLE,SELF-VALIDATING,TIMELY)
+	AAA(Arrange-Act-Assert) pattern
+	POM Page Object Model
+-Test Data Management
+-Test Environment Management
+
+3.Master Each testing level
+- Unit testing
+	- Mocking and Stubbing
+	- Test doubles (Mocks,Stubs,Fakes)
+	- Dependency injection
+	- Code coverage metrics
+- Integration Testing
+- API testing patterns 
+	- Database testing
+	- Microservices testing
+	- contract testing
+- E2E testing
+	- UI automation patterns
+	- Cross-browser testing 
+	- mobile testing
+	- Parallel execution
+
+4.Modern Development phases
+- continuous integration/continuous deployment (CI/CD)
+	- Jenkins pipelines
+	- GitHub actions -** to master
+	- Azure Devops
+	- Circle CI
+- Test Automation in Agile -** to master
+	- shift-left testing
+	- TDD
+	- Behaviour-Driven development BDD
+	- Testing in sprints
+	- Automated reporting
+
+5.Practice with Automation Patterns
+- Design Patterns
+	POM - **to master
+	Singleton
+	Data driven testing
+	keyword driven
+	hybrid testing
+
+6.Expand into specialized testing areas
+- Performance testing
+	load, stress, scalability, performance metrics
+- Security testing
+	OWASP top 10, Penetration testing, Security scanning, API security
+
+7.Additional 
+- Version control - GIT
+- Code Review
+- Documentation
+- Infrastructure - Docker, Cloud platforms etc.
+- Debugging
+
+
+***********************************************************************************************************
+
+Cypress -
+	NOTES - https://github.com/SDcod/CypressNotes/blob/main/CyNotes.txt 
+	Project - TheInternet - https://github.com/SDcod/TheInternetCypressPomBdd
+
+JavaScript -
+	NOTES - https://github.com/SDcod/JavaScript_Notes/blob/main/JS-Custom-Notes.txt
+	practiceRepo - https://github.com/SDcod/JavaScript_Notes/tree/main/javascript-beginning-to-mastery
+
+DSA - https://github.com/SDcod/JavaScript_Notes/tree/main/DSA-basic
+     Basic Core concepts
+ 	PRE- https://instabyte.io/p/dsa-master 
+ 	top100- https://instabyte.io/p/interview-master-100
+
+
+
+
+***********************************************************************************************************
+
+
+
+TODO : 
+	- Recursion, Sorting techniques ** 
+	- Selector strategies **
+
+
+
