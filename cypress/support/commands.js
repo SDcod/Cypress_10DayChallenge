@@ -23,3 +23,31 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+//Custom command to handle elements inside iframe
+Cypress.Commands.add("getIframeBody", (iframeSelector) => {
+  return cy
+    .get(iframeSelector)
+    .its("0.contentDocument.body")
+    .should("not.be.empty")
+    .then(cy.wrap);
+});
+
+//custom command to handle drag and drop in iframe
+Cypress.Commands.add(
+  "dragAndDropInIframe",
+  (iframeSelector, sourceSelector, targetSelector) => {
+    cy.getIframeBody(iframeSelector).then((iframeBody) => {
+      const dataTransfer = new DataTransfer();
+
+      cy.wrap(iframeBody)
+        .find(sourceSelector)
+        .trigger("dragstart", { dataTransfer });
+
+      cy.wrap(iframeBody)
+        .find(targetSelector)
+        .trigger("drop", { dataTransfer })
+        .trigger("dragend", { force: true });
+    });
+  }
+);
