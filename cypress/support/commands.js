@@ -51,3 +51,6 @@ Cypress.Commands.add(
     });
   }
 );
+
+//cypress download file support
+require("cypress-downloadfile/lib/downloadFileCommand");

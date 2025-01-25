@@ -2,6 +2,7 @@ MAP for SDET ( Cypress ).
 
 Language- JavaScript, SQL.s
 Tool- Cypress.
+AI in testing - Machine learning, NLP, DataAnalytics,RPA.
 CICD- GitHub-Actions
 Version Control- Git
 Testing Concepts- STLC, testing types etc. TC design, API testing ,performance testing.
