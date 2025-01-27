@@ -1,0 +1,30 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@example.com",
+    "mobile": "9876543210",
+    "gender": "Male",
+    "dob": "01 Jan 2000",
+    "subjects": ["Maths", "Physics"],
+    "hobbies": ["Sports", "Music"],
+    "address": "123, Test Street",
+    "state": "NCR",
+    "city": "Delhi",
+    "expectedMessage": "Thanks for submitting the form"
+  },
+  {
+    "firstName": "",
+    "lastName": "Smith",
+    "email": "invalidemail",
+    "mobile": "12345",
+    "gender": "",
+    "dob": "",
+    "subjects": [],
+    "hobbies": [],
+    "address": "",
+    "state": "",
+    "city": "",
+    "expectedError": "Please fill out this field."
+  }
+]
