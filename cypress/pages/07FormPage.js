@@ -7,12 +7,18 @@ class FormPage {
     genderRadioButton: (gender) =>
       cy.get(`input[name="gender"][value="${gender}"]`),
     dobInput: () => cy.get("#dateOfBirthInput"),
+    dobMonth: () => cy.get(".react-datepicker__month-select"),
+    dobYear: () => cy.get(".react-datepicker__year-select"),
+    dobDay: (day) =>
+      cy.get(
+        `.react-datepicker__day.react-datepicker__day--0${day}:not(.react-datepicker__day--outside-month)`
+      ),
     subjectsInput: () => cy.get("#subjectsInput"),
     hobbiesCheckbox: (hobby) =>
       cy.get(`label[for="hobbies-checkbox-${hobby}"]`),
     addressInput: () => cy.get("#currentAddress"),
-    stateDropdown: () => cy.get(".css-1hwfws3"),
-    cityDropdown: () => cy.get(".css-1wa3eu0-placeholder"),
+    stateDropdown: () => cy.get("#state"),
+    cityDropdown: () => cy.get("#city"),
   };
 
   // Actions
@@ -42,8 +48,21 @@ class FormPage {
   }
 
   selectDOB(dob) {
-    this.elements.dobInput().type(dob);
-    cy.get("@selectdob").type("{enter}");
+    const [day, month, year] = dob.split(" "); //Expected format "01 January 2000"
+
+    this.elements.dobInput().click();
+
+    this.elements.dobMonth().select(month);
+
+    this.elements.dobYear().select(year);
+
+    cy.get(
+      ".react-datepicker__current-month.react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown"
+    ).should("have.text", `${month} ${year}`); //validate selected month and year
+    cy.wait(500); //small wait to avoid flaky test.
+
+    this.elements.dobDay(day).click();
+
     return this;
   }
 

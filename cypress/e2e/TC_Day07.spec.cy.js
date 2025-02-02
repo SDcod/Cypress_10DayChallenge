@@ -8,7 +8,7 @@ describe("form validations : day 07", () => {
       .enterEmail("johndoe@example.com")
       .enterMobileNumber("9876543210")
       .selectGender("Male")
-      .selectDOB("01 Jan 2000")
+      .selectDOB("01 January 2000")
       .enterSubjects("Maths")
       .selectHobby(1) // 1 for 'Sports', use respective index for others
       .enterAddress("123, Test Street")
