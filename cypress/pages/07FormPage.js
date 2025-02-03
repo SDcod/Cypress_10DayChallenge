@@ -19,49 +19,71 @@ class FormPage {
     addressInput: () => cy.get("#currentAddress"),
     stateDropdown: () => cy.get("#state"),
     cityDropdown: () => cy.get("#city"),
+    submitBtn: () => cy.get("#submit"),
   };
 
   // Actions
   enterFirstName(name) {
-    this.elements.firstNameInput().clear().type(name);
+    if (name) {
+      this.elements.firstNameInput().clear().type(name);
+    } else {
+      this.elements.firstNameInput().invoke("val", "");
+    }
     return this;
   }
 
   enterLastName(name) {
-    this.elements.lastNameInput().clear().type(name);
+    if (name) {
+      this.elements.lastNameInput().clear().type(name);
+    } else {
+      this.elements.lastNameInput().invoke("val", "");
+    }
+
     return this;
   }
 
   enterEmail(email) {
-    this.elements.emailInput().clear().type(email);
+    if (email) {
+      this.elements.emailInput().clear().type(email);
+    } else {
+      this.elements.emailInput().invoke("val", "");
+    }
     return this;
   }
 
   enterMobileNumber(number) {
-    this.elements.mobileInput().clear().type(number);
+    if (number) {
+      this.elements.mobileInput().clear().type(number);
+    } else {
+      this.elements.mobileInput().invoke("val", "");
+    }
     return this;
   }
 
   selectGender(gender) {
-    this.elements.genderRadioButton(gender).check({ force: true });
+    if (gender) {
+      this.elements.genderRadioButton(gender).check({ force: true });
+    }
     return this;
   }
 
   selectDOB(dob) {
-    const [day, month, year] = dob.split(" "); //Expected format "01 January 2000"
+    if (dob) {
+      const [day, month, year] = dob.split(" "); //Expected format "01 January 2000"
 
-    this.elements.dobInput().click();
+      this.elements.dobInput().click();
 
-    this.elements.dobMonth().select(month);
+      this.elements.dobMonth().select(month);
 
-    this.elements.dobYear().select(year);
+      this.elements.dobYear().select(year);
 
-    cy.get(
-      ".react-datepicker__current-month.react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown"
-    ).should("have.text", `${month} ${year}`); //validate selected month and year
-    cy.wait(500); //small wait to avoid flaky test.
+      cy.get(
+        ".react-datepicker__current-month.react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown"
+      ).should("have.text", `${month} ${year}`); //validate selected month and year
+      cy.wait(500); //small wait to avoid flaky test.
 
-    this.elements.dobDay(day).click();
+      this.elements.dobDay(day).click();
+    }
 
     return this;
   }
@@ -88,6 +110,11 @@ class FormPage {
 
   selectCity(city) {
     this.elements.cityDropdown().click().type(`${city}{enter}`);
+    return this;
+  }
+
+  submitForm() {
+    this.elements.submitBtn().click();
     return this;
   }
 }

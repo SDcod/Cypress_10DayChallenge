@@ -5,7 +5,7 @@
     "email": "johndoe@example.com",
     "mobile": "9876543210",
     "gender": "Male",
-    "dob": "01 Jan 2000",
+    "dob": "01 January 2000",
     "subjects": ["Maths", "Physics"],
     "hobbies": ["Sports", "Music"],
     "address": "123, Test Street",
