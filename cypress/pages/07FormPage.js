@@ -14,8 +14,7 @@ class FormPage {
         `.react-datepicker__day.react-datepicker__day--0${day}:not(.react-datepicker__day--outside-month)`
       ),
     subjectsInput: () => cy.get("#subjectsInput"),
-    hobbiesCheckbox: (hobby) =>
-      cy.get(`label[for="hobbies-checkbox-${hobby}"]`),
+    hobbiesCheckbox: () => cy.get('input[id*="hobbies-checkbox"]'),
     addressInput: () => cy.get("#currentAddress"),
     stateDropdown: () => cy.get("#state"),
     cityDropdown: () => cy.get("#city"),
@@ -24,11 +23,7 @@ class FormPage {
 
   // Actions
   enterFirstName(name) {
-    if (name) {
-      this.elements.firstNameInput().clear().type(name);
-    } else {
-      this.elements.firstNameInput().invoke("val", "");
-    }
+    this.handleInput(this.elements.firstNameInput(), name);
     return this;
   }
 
@@ -88,34 +83,57 @@ class FormPage {
     return this;
   }
 
-  enterSubjects(subject) {
-    this.elements.subjectsInput().type(subject).type("{enter}");
+  enterSubjects(subjects) {
+    subjects.forEach((subject) => {
+      if (subject.length >= 1) {
+        this.elements.subjectsInput().type(subject).type("{enter}");
+      }
+    });
     return this;
   }
 
-  selectHobby(hobbyIndex) {
-    this.elements.hobbiesCheckbox(hobbyIndex).click();
+  selectHobby(hobbies) {
+    if (hobbies.length >= 1) {
+      this.elements.hobbiesCheckbox().check(hobbies, { force: true });
+    }
+
     return this;
   }
 
   enterAddress(address) {
-    this.elements.addressInput().clear().type(address);
+    if (address) {
+      this.elements.addressInput().clear().type(address);
+    }
     return this;
   }
 
   selectState(state) {
-    this.elements.stateDropdown().click().type(`${state}{enter}`);
+    if (state) {
+      this.elements.stateDropdown().click().type(`${state}{enter}`);
+    }
     return this;
   }
 
   selectCity(city) {
-    this.elements.cityDropdown().click().type(`${city}{enter}`);
+    if (city) {
+      this.elements.cityDropdown().click().type(`${city}{enter}`);
+    }
+
     return this;
   }
 
   submitForm() {
     this.elements.submitBtn().click();
     return this;
+  }
+
+  //utility function to handle empty strings
+  handleInput(field, value) {
+    if (value) {
+      field.clear().type(value);
+    } else {
+      field.invoke("val", "");
+    }
   }
 }
 

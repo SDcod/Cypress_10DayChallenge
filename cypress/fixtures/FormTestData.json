@@ -7,7 +7,7 @@
     "gender": "Male",
     "dob": "01 January 2000",
     "subjects": ["Maths", "Physics"],
-    "hobbies": ["Sports", "Music"],
+    "hobbies": ["1", "2"],
     "address": "123, Test Street",
     "state": "NCR",
     "city": "Delhi",
