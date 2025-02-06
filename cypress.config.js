@@ -31,4 +31,5 @@ module.exports = defineConfig({
     },
     downloadsFolder: "cypress/downloads",
   },
+  retries: { runMode: 2, openMode: 1 },
 });

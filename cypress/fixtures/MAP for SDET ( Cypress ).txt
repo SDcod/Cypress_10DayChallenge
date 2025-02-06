@@ -1,6 +1,6 @@
 MAP for SDET ( Cypress ).
 
-Language- JavaScript, SQL.s
+Language- JavaScript, SQL.
 Tool- Cypress.
 AI in testing - Machine learning, NLP, DataAnalytics,RPA.
 CICD- GitHub-Actions
