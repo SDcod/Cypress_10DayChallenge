@@ -1,12 +1,25 @@
 // 🚀 Day 09 Challenge: UI & API Validation Combined
-// For today's challenge, you'll validate UI elements based on an API response. You will:
+describe("Day 09: Mocking API Responses", () => {
+  it("Stubs the users list API", () => {
+    cy.intercept("GET", "https://reqres.in/api/users?page=2", {
+      statusCode: 200,
+      body: {
+        data: [
+          { id: 1, first_name: "John", last_name: "Doe" },
+          { id: 2, first_name: "Jane", last_name: "Smith" },
+        ],
+      },
+    }).as("mockUsers");
 
-// Mock an API response and stub it using cy.intercept().
-// Extract specific data from the API response.
-// Validate that UI elements reflect the mocked API data.
-// 🔹 Scenario: Validate Product List on UI Matches API Response
-// Visit: https://automationexercise.com/products
-// Intercept and stub the API request for /api/productsList
-// Modify the response to contain only 3 products (use fixture)
-// Validate that only those 3 products appear in the UI
-// Bonus: Click on a product and validate the details page
+    cy.visit("https://reqres.in/");
+    cy.contains(" List users ").click(); // Opens the users list
+
+    cy.wait("@mockUsers").then((interception) => {
+      expect(interception.response.statusCode).to.eq(200);
+      cy.log(interception.response.body);
+    });
+
+    cy.contains("John").should("be.visible");
+    cy.contains("Jane").should("be.visible");
+  });
+});
