@@ -11,7 +11,7 @@
 // 🔹 Requirements:
 // ✅ Visit the website: https://automationexercise.com/
 // ✅ Select a product and add it to the cart
-// ✅ Proceed to checkout and handle login/signup/guest checkout
+// ✅ Proceed to checkout and handle login/signup checkout
 // ✅ Fill in billing & payment details
 // ✅ Complete the order and validate the success message
 
@@ -38,8 +38,133 @@
 // A brief explanation of your approach (as you would in an interview)
 // Optional: Screenshot or video proof of execution
 
+import SignUpAndLogin from "../pages/AutomationExercise/SignUpAndLogin";
+import HomePage from "../pages/AutomationExercise/HomePage";
+import UserRegister from "../pages/AutomationExercise/UserRegister";
+import DeleteAccount from "../pages/AutomationExercise/DeleteAccount";
+import AccountCreated from "../pages/AutomationExercise/AccountCreated";
+
 describe("E-commerce checkout suite", () => {
-  it("Guest visit Register checkout", () => {});
-  it("Guest visit login checkout", () => {});
-  it("Login visit add product checkout", () => {});
+  let userdata = {};
+  let paymentData = {};
+
+  beforeEach(() => {
+    cy.fixture("AutomationExerciseUsers/RegisterData.json").then((data) => {
+      userdata = data;
+    });
+
+    cy.fixture("AutomationExerciseUsers/PaymentData.json").then((data) => {
+      paymentData = data;
+    });
+    // 1. Launch browser
+    // 2. Navigate to url 'http://automationexercise.com'
+    cy.visit("https://www.automationexercise.com/");
+  });
+
+  it.only("Guest visit Register checkout", () => {
+    //user vistits the page- selects product - go to cart -click proceed to checkout - register user - click continue - go to cart - checkout - fill card details - order success.
+
+    //get first item
+    cy.get(
+      ".features_items>div.col-sm-4:nth-of-type(2) div.single-products"
+    ).trigger("mouseover");
+    cy.get(
+      ".features_items>div.col-sm-4:nth-of-type(2) div.single-products div.overlay-content>a.add-to-cart"
+    )
+      .should("be.visible")
+      .click({ force: true });
+
+    cy.wait(1000);
+    //go to cart by clicking on modal
+    cy.get("#cartModal .modal-content .modal-body").within(($body) => {
+      cy.get("p")
+        .eq(0)
+        .should("have.text", "Your product has been added to cart.");
+      cy.get('a[href="/view_cart"]').click({ force: true });
+    });
+
+    //click proceed to checkout
+    cy.contains("Proceed To Checkout").click();
+
+    //click register/login button
+    cy.get(
+      "#checkoutModal .modal-content .modal-body a[href='/login']"
+    ).click();
+
+    //Register new user
+    SignUpAndLogin.validateSignupTitle()
+      .enterSignupName(userdata.validUser.name)
+      .enterSignupEmail(userdata.validUser.email)
+      .submitSignUpform();
+
+    UserRegister.validateURL()
+      .validateFormTitle()
+      .chooseGenderMr()
+      .validateUserName(`${userdata.validUser.name}`)
+      .validateUserEmail(`${userdata.validUser.email}`)
+      .enterPassword(`${userdata.validUser.password}`)
+      .selectDay("11")
+      .selectMonth("March")
+      .selectYear("2000")
+      .checkNewsletter()
+      .checkOptin()
+      .fillFirstName(`${userdata.validUser.firstname}`)
+      .fillLastName(`${userdata.validUser.lastname}`)
+      .fillCompany(`${userdata.validUser.company}`)
+      .fillAddress(`${userdata.validUser.address}`)
+      .selectCountry("India")
+      .fillState(`${userdata.validUser.state}`)
+      .fillCity(`${userdata.validUser.city}`)
+      .fillZipcode(`${userdata.validUser.zipcode}`)
+      .fillMobileNumber(`${userdata.validUser.mobile_number}`)
+      .clickCreateAccount(); // 13. Click 'Create Account button'
+    AccountCreated.validateURL().validateSuccessMsg().clickContinue();
+    cy.url().should("eq", "https://www.automationexercise.com/");
+    HomePage.validateLoggedInUser(`Logged in as ${userdata.validUser.name}`);
+
+    //go to cart
+    cy.get('#header a[href="/view_cart"]').click();
+
+    //validate one item is added in cart
+    cy.get("#cart_info_table tbody tr").should("have.length", 1);
+
+    //click checkout button
+    cy.contains("Proceed To Checkout").click();
+
+    cy.url().should("eq", "https://www.automationexercise.com/checkout");
+
+    //checkout page validations
+    cy.get("#address_delivery").contains(`${userdata.validUser.firstname}`);
+
+    //click placeorder
+    cy.get("a[href='/payment']")
+      .should("be.visible")
+      .contains("Place Order")
+      .click();
+
+    //Payment page
+    cy.url().should("eq", "https://www.automationexercise.com/payment");
+
+    cy.get('[data-qa="name-on-card"]').type(`${paymentData.cardName}`);
+    cy.get('[data-qa="card-number"]').type(`${paymentData.cardNumber}`);
+    cy.get('[data-qa="cvc"]').type(`${paymentData.cvv}`);
+    cy.get('[data-qa="expiry-month"]').type(`${paymentData.expirationMonth}`);
+    cy.get('[data-qa="expiry-year"]').type(`${paymentData.expirationYear}`);
+
+    cy.get('button[id="submit"]').click();
+
+    cy.get('[data-qa="order-placed"]').as("orderPlacedTitle", {
+      timeout: 10000,
+    });
+
+    cy.wait(2000);
+
+    //cleanup
+    HomePage.clickDeleteAccount();
+    DeleteAccount.validateURL().validateSuccessMsg().clickContinue();
+  });
+
+  it("Guest visit login checkout", () => {
+    //user vistits the page- selects product - go to cart - login user - click continue - go to cart - checkout - fill card details - order success.
+  });
 });

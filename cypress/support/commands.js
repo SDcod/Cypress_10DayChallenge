@@ -52,5 +52,10 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add("getDataQa", (val) => {
+  return cy.get(`[data-qa=${val}]`).should("be.visible");
+});
+
 //cypress download file support
 require("cypress-downloadfile/lib/downloadFileCommand");
+require("cypress-xpath");

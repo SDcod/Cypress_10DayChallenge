@@ -1,0 +1,17 @@
+[
+  {
+    "email": "kevin.valid@test.com",
+    "password": "kevin@1234",
+    "expected": "Logged in as kevinT"
+  },
+  {
+    "email": "kevin.invalid@test.com",
+    "password": "kevin@1234",
+    "expected": "Your email or password is incorrect!"
+  },
+  {
+    "email": "kevin.valid@test.com",
+    "password": "kevinValid@1234",
+    "expected": "Your email or password is incorrect!"
+  }
+]
