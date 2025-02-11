@@ -1,8 +1,6 @@
 const { defineConfig } = require("cypress");
 const { downloadFile } = require("cypress-downloadfile/lib/addPlugin");
 const { rmdir, readFileSync, existsSync } = require("fs");
-const { path, join } = require("path");
-const { resolve } = require("path");
 
 module.exports = defineConfig({
   e2e: {
@@ -32,4 +30,6 @@ module.exports = defineConfig({
     downloadsFolder: "cypress/downloads",
   },
   retries: { runMode: 2, openMode: 0 },
+  video: true,
+  videoCompression: 20,
 });

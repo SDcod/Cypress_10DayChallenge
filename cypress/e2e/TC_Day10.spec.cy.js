@@ -61,7 +61,7 @@ describe("E-commerce checkout suite", () => {
     cy.visit("https://www.automationexercise.com/");
   });
 
-  it.only("Guest visit Register checkout", () => {
+  it("Guest visit Register checkout", () => {
     //user vistits the page- selects product - go to cart -click proceed to checkout - register user - click continue - go to cart - checkout - fill card details - order success.
 
     //get first item
@@ -159,12 +159,92 @@ describe("E-commerce checkout suite", () => {
 
     cy.wait(2000);
 
-    //cleanup
-    HomePage.clickDeleteAccount();
-    DeleteAccount.validateURL().validateSuccessMsg().clickContinue();
+    HomePage.clickLogoutBtn();
+    //cleanup if needed to delete account before login
+    // HomePage.clickDeleteAccount();
+    // DeleteAccount.validateURL().validateSuccessMsg().clickContinue();
   });
 
   it("Guest visit login checkout", () => {
     //user vistits the page- selects product - go to cart - login user - click continue - go to cart - checkout - fill card details - order success.
+
+    //get first item
+    cy.get(
+      ".features_items>div.col-sm-4:nth-of-type(2) div.single-products"
+    ).trigger("mouseover");
+    cy.get(
+      ".features_items>div.col-sm-4:nth-of-type(2) div.single-products div.overlay-content>a.add-to-cart"
+    )
+      .should("be.visible")
+      .click({ force: true });
+
+    cy.wait(1000);
+    //go to cart by clicking on modal
+    cy.get("#cartModal .modal-content .modal-body").within(() => {
+      cy.get("p")
+        .eq(0)
+        .should("have.text", "Your product has been added to cart.");
+      cy.get('a[href="/view_cart"]').click({ force: true });
+    });
+
+    //click proceed to checkout
+    cy.contains("Proceed To Checkout").should("be.visible").click();
+
+    //click register/login button
+    cy.get(
+      "#checkoutModal .modal-content .modal-body a[href='/login']"
+    ).click();
+
+    //Login to new user created in earlier testcase.
+    SignUpAndLogin.validateLoginTitle()
+      .enterLoginEmail(userdata.validUser.email)
+      .enterLoginPassword(userdata.validUser.password)
+      .submitLoginform();
+
+    cy.wait(1000);
+    HomePage.validateLoggedInUser(
+      `Logged in as ${userdata.validUser.firstname}`
+    );
+
+    //go to cart
+    cy.get('#header a[href="/view_cart"]').click();
+
+    //validate one item is added in cart
+    cy.get("#cart_info_table tbody tr").should("have.length", 1);
+
+    //click checkout button
+    cy.contains("Proceed To Checkout").click();
+
+    cy.url().should("eq", "https://www.automationexercise.com/checkout");
+
+    //checkout page validations
+    cy.get("#address_delivery").contains(`${userdata.validUser.firstname}`);
+
+    //click placeorder
+    cy.get("a[href='/payment']")
+      .should("be.visible")
+      .contains("Place Order")
+      .click();
+
+    //Payment page
+    cy.url().should("eq", "https://www.automationexercise.com/payment");
+
+    cy.get('[data-qa="name-on-card"]').type(`${paymentData.cardName}`);
+    cy.get('[data-qa="card-number"]').type(`${paymentData.cardNumber}`);
+    cy.get('[data-qa="cvc"]').type(`${paymentData.cvv}`);
+    cy.get('[data-qa="expiry-month"]').type(`${paymentData.expirationMonth}`);
+    cy.get('[data-qa="expiry-year"]').type(`${paymentData.expirationYear}`);
+
+    cy.get('button[id="submit"]').click();
+
+    cy.get('[data-qa="order-placed"]').as("orderPlacedTitle", {
+      timeout: 10000,
+    });
+
+    cy.wait(2000);
+
+    // cleanup if needed to delete account before login
+    HomePage.clickDeleteAccount();
+    DeleteAccount.validateURL().validateSuccessMsg().clickContinue();
   });
 });

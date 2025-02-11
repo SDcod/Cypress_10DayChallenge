@@ -13,6 +13,7 @@ class DeleteAccount {
     });
     return this;
   }
+
   validateSuccessMsg() {
     this.elements.successMessage();
     return this;
