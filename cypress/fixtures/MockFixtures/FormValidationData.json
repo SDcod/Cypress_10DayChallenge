@@ -1,0 +1,25 @@
+[
+  {
+    "contactName": "John D",
+    "contactNumber": "110-1234567",
+    "pickupDate": "2025-04-28",
+    "paymentMethod": "cash on delivery",
+    "paymentValue": "cashondelivery",
+    "type": "valid"
+  },
+  {
+    "contactName": "John C",
+    "contactNumber": "110-1234567",
+    "pickupDate": "2025-04-28",
+    "paymentMethod": "card",
+    "paymentValue": "card",
+    "type": "valid"
+  },
+  {
+    "contactName": "",
+    "contactNumber": "",
+    "pickupDate": "",
+    "paymentMethod": "",
+    "type": "invalid"
+  }
+]
