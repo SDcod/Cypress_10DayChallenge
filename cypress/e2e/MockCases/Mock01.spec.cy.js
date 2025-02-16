@@ -3,7 +3,7 @@
 //try implementing custom configs and scripts
 //integrate CICD using githubActions
 
-import FormValidation from "../pages/MockPages/01FormValidationPage";
+import FormValidation from "../../pages/MockPages/01FormValidationPage";
 
 describe("Form Validations", () => {
   let mockdata = [];

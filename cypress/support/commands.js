@@ -58,4 +58,5 @@ Cypress.Commands.add("getDataQa", (val) => {
 
 //cypress download file support
 require("cypress-downloadfile/lib/downloadFileCommand");
+
 require("cypress-xpath");

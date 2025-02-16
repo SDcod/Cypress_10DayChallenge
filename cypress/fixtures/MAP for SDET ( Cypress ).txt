@@ -105,8 +105,8 @@ DSA - https://github.com/SDcod/JavaScript_Notes/tree/main/DSA-basic
 
 
 TODO : 
-	- Recursion, Sorting techniques ** 
-	- Selector strategies **
+	- Selector strategies **- css selectors / xpath loactors
+	- Reading files / xlsx
 
 
 
