@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:video:spec": "cypress run --browser chrome --spec 'cypress/e2e/TC_Day10.spec.cy.js'",
-    "mockTest:chrome": "cypress run --headed --browser chrome --spec \"cypress/e2e/MockCases/*.spec.cy.js\""
+    "mockTest:chrome": "cypress run --browser chrome --spec \"cypress/e2e/MockCases/*.spec.cy.js\""
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "cypress": "^14.0.0",
     "cypress-downloadfile": "^1.2.4",
     "cypress-iframe": "^1.0.1",
+    "cypress-mochawesome-reporter": "^3.8.2",
     "cypress-xpath": "^2.0.1"
   }
 }

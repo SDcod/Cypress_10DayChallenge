@@ -3,6 +3,7 @@ const { downloadFile } = require("cypress-downloadfile/lib/addPlugin");
 const { rmdir, readFileSync, existsSync } = require("fs");
 
 module.exports = defineConfig({
+  reporter: "cypress-mochawesome-reporter",
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
@@ -26,9 +27,11 @@ module.exports = defineConfig({
           throw new Error(`File not found: ${filePath}`);
         },
       });
+      require("cypress-mochawesome-reporter/plugin")(on);
     },
     downloadsFolder: "cypress/downloads",
   },
+
   retries: { runMode: 2, openMode: 0 },
   video: true,
   videoCompression: 20,
