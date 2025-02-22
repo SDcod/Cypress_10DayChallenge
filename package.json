@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:video:spec": "cypress run --browser chrome --spec 'cypress/e2e/TC_Day10.spec.cy.js'",
-    "mockTest:chrome": "cypress run --browser chrome --spec \"cypress/e2e/MockCases/*.spec.cy.js\""
+    "mockTest:chrome": "cypress run --browser chrome --spec \"cypress/e2e/MockCases/*.spec.cy.js\"",
+    "apiTest": "cypress run --spec \"cypress/e2e/TC_Day09.spec.cy.js\""
   },
   "keywords": [],
   "author": "",
